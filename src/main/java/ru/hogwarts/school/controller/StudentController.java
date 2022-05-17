@@ -41,12 +41,12 @@ public class StudentController {
     }
 
     @DeleteMapping("{id}")
-    public Student deleteStudent(@PathVariable Long id) {
-        return studentService.deleteStudent(id);
+    public void deleteStudent(@PathVariable Long id) {
+        studentService.deleteStudent(id);
     }
 
     @GetMapping
-    public Map<Long, Student> getAllStudents() {
+    public Collection<Student> getAllStudents() {
         return studentService.getAllStudents();
     }
 
