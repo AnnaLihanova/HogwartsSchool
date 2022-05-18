@@ -7,8 +7,6 @@ import ru.hogwarts.school.service.StudentService;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -43,8 +41,11 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findAll();
     }
 
-    @Override
     public List<Student> getStudentsByAge(int age) {
         return studentRepository.findByAge(age);
+    }
+
+    public Collection<Student> findStudentByAgeBetween(int min, int max) {
+        return studentRepository.findStudentsByAgeBetween(min, max);
     }
 }
