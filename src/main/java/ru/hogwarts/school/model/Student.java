@@ -14,17 +14,22 @@ public class Student {
     private String name;
     private int age;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name = "faculty_id")
-    private Faculty facultyOfStudent;
+    private Faculty faculty;
 
-    public Student(Long id, String name, int age) {
+    public Student(Long id, String name, int age, Faculty faculty) {
         this.name = name;
         this.age = age;
         this.id = id;
+        this.faculty = faculty;
     }
 
     public Student() {
+    }
+
+    public Faculty getFaculty() {
+        return faculty;
     }
 
     public Long getId() {

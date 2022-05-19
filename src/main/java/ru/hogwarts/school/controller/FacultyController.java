@@ -68,5 +68,10 @@ public class FacultyController {
         return facultyService.findFacultyByNameOrColor(name, color);
     }
 
+    @GetMapping("/facultyStudents/{id}")
+    public ResponseEntity<Collection<Student>> getStudentsOfFaculty(@PathVariable Long id) {
+        return ResponseEntity.ok(facultyService.getStudentsOfFaculty(id));
+    }
+
 
 }

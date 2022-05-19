@@ -48,4 +48,9 @@ public class StudentServiceImpl implements StudentService {
     public Collection<Student> findStudentByAgeBetween(int min, int max) {
         return studentRepository.findStudentsByAgeBetween(min, max);
     }
+
+    public String getFacultyOfStudent(Long id) {
+       return studentRepository.findById(id).get() +
+        studentRepository.findById(id).get().getFaculty().getName();
+    }
 }
