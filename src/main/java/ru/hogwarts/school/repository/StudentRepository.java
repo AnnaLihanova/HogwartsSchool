@@ -11,4 +11,6 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     List<Student> findByAge(int age);
 
     Collection<Student> findStudentsByAgeBetween(int min, int max);
+
+    Student findStudentByNameContainsIgnoreCase(String name);
 }

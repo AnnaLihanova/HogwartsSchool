@@ -68,4 +68,9 @@ public class StudentController {
     public ResponseEntity getFacultyOfStudentByIdOfStudent(@PathVariable Long id) {
         return ResponseEntity.ok(studentService.getFacultyOfStudent(id));
     }
+
+    @GetMapping("/getStudentByName/{name}")
+    public ResponseEntity findStudentByNameContainsIgnoreCase(@PathVariable String name) {
+        return ResponseEntity.ok(studentService.findStudentByNameContainsIgnoreCase(name));
+    }
 }

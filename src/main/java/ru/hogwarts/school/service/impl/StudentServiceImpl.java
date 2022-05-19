@@ -53,4 +53,8 @@ public class StudentServiceImpl implements StudentService {
        return studentRepository.findById(id).get() +
         studentRepository.findById(id).get().getFaculty().getName();
     }
+
+    public Student findStudentByNameContainsIgnoreCase(String name) {
+        return studentRepository.findStudentByNameContainsIgnoreCase(name);
+    }
 }
