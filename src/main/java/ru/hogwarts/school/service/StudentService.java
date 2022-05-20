@@ -18,4 +18,12 @@ public interface StudentService {
     void deleteStudent(Long id);
 
     Collection<Student> getAllStudents();
+
+    List<Student> getStudentsByAge(int age);
+
+    Collection<Student> findStudentByAgeBetween(int min, int max);
+
+    String getFacultyOfStudent(Long id);
+
+    Student findStudentByNameContainsIgnoreCase(String name);
 }

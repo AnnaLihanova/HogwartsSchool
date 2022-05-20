@@ -14,9 +14,9 @@ import java.util.Map;
 @RestController
 @RequestMapping("faculty")
 public class FacultyController {
-    private final FacultyServiceImpl facultyService;
+    private final FacultyService facultyService;
 
-    public FacultyController(FacultyServiceImpl facultyService) {
+    public FacultyController(FacultyService facultyService) {
         this.facultyService = facultyService;
     }
 

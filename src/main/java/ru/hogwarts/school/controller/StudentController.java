@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Student;
+import ru.hogwarts.school.service.StudentService;
 import ru.hogwarts.school.service.impl.StudentServiceImpl;
 
 import java.util.*;
@@ -11,9 +12,9 @@ import java.util.*;
 @RestController
 @RequestMapping("/student")
 public class StudentController {
-    private final StudentServiceImpl studentService;
+    private final StudentService studentService;
 
-    public StudentController(StudentServiceImpl studentService) {
+    public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
 

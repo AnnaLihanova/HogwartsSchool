@@ -33,7 +33,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void deleteStudent(Long id) {
-       studentRepository.deleteById(id);
+        studentRepository.deleteById(id);
     }
 
     @Override
@@ -41,19 +41,23 @@ public class StudentServiceImpl implements StudentService {
         return studentRepository.findAll();
     }
 
+    @Override
     public List<Student> getStudentsByAge(int age) {
         return studentRepository.findByAge(age);
     }
 
+    @Override
     public Collection<Student> findStudentByAgeBetween(int min, int max) {
         return studentRepository.findStudentsByAgeBetween(min, max);
     }
 
+    @Override
     public String getFacultyOfStudent(Long id) {
-       return studentRepository.findById(id).get() +
-        studentRepository.findById(id).get().getFaculty().getName();
+        return studentRepository.findById(id).get() +
+                studentRepository.findById(id).get().getFaculty().getName();
     }
 
+    @Override
     public Student findStudentByNameContainsIgnoreCase(String name) {
         return studentRepository.findStudentByNameContainsIgnoreCase(name);
     }
