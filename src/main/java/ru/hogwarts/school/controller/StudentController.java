@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
+import ru.hogwarts.school.service.impl.StudentServiceImpl;
 
 import java.util.*;
 
@@ -59,4 +60,18 @@ public class StudentController {
         return ResponseEntity.ok(studentByAge);
     }
 
+    @GetMapping("/ageBetween/{min}/{max}")
+    public Collection<Student> findByAgeBetween(@PathVariable int min, @PathVariable int max) {
+        return studentService.findStudentByAgeBetween(min, max);
+    }
+
+    @GetMapping("/getFaculty/{id}")
+    public ResponseEntity getFacultyOfStudentByIdOfStudent(@PathVariable Long id) {
+        return ResponseEntity.ok(studentService.getFacultyOfStudent(id));
+    }
+
+    @GetMapping("/getStudentByName/{name}")
+    public ResponseEntity findStudentByNameContainsIgnoreCase(@PathVariable String name) {
+        return ResponseEntity.ok(studentService.findStudentByNameContainsIgnoreCase(name));
+    }
 }

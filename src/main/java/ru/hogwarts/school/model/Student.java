@@ -2,10 +2,7 @@ package ru.hogwarts.school.model;
 
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -17,13 +14,22 @@ public class Student {
     private String name;
     private int age;
 
-    public Student(Long id, String name, int age) {
+    @ManyToOne
+    @JoinColumn(name = "faculty_id")
+    private Faculty faculty;
+
+    public Student(Long id, String name, int age, Faculty faculty) {
         this.name = name;
         this.age = age;
         this.id = id;
+        this.faculty = faculty;
     }
 
     public Student() {
+    }
+
+    public Faculty getFaculty() {
+        return faculty;
     }
 
     public Long getId() {

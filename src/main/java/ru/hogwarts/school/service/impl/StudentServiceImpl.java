@@ -7,8 +7,6 @@ import ru.hogwarts.school.service.StudentService;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -35,7 +33,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public void deleteStudent(Long id) {
-       studentRepository.deleteById(id);
+        studentRepository.deleteById(id);
     }
 
     @Override
@@ -46,5 +44,21 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<Student> getStudentsByAge(int age) {
         return studentRepository.findByAge(age);
+    }
+
+    @Override
+    public Collection<Student> findStudentByAgeBetween(int min, int max) {
+        return studentRepository.findStudentsByAgeBetween(min, max);
+    }
+
+    @Override
+    public String getFacultyOfStudent(Long id) {
+        return studentRepository.findById(id).get() +
+                studentRepository.findById(id).get().getFaculty().getName();
+    }
+
+    @Override
+    public Student findStudentByNameContainsIgnoreCase(String name) {
+        return studentRepository.findStudentByNameContainsIgnoreCase(name);
     }
 }

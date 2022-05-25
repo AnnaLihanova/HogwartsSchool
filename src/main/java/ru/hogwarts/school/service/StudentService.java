@@ -19,5 +19,11 @@ public interface StudentService {
 
     Collection<Student> getAllStudents();
 
-    Collection<Student> getStudentsByAge(int age);
+    List<Student> getStudentsByAge(int age);
+
+    Collection<Student> findStudentByAgeBetween(int min, int max);
+
+    String getFacultyOfStudent(Long id);
+
+    Student findStudentByNameContainsIgnoreCase(String name);
 }
