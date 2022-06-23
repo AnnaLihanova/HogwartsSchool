@@ -11,6 +11,9 @@ import org.springframework.http.ResponseEntity;
 import ru.hogwarts.school.controller.StudentController;
 import ru.hogwarts.school.model.Student;
 
+import java.util.Collection;
+
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class StudentControllerTests {
 
@@ -22,7 +25,6 @@ class StudentControllerTests {
 
     @Autowired
     private TestRestTemplate restTemplate;
-
 
 
     @Test
@@ -50,19 +52,29 @@ class StudentControllerTests {
                 .isNotNull();
     }
 
-//    @Test //PUT
-//    void TestEditStudent() throws Exception {
-//        Student editStudent = new Student();
-//        editStudent.setId(1L);
-//        editStudent.setName("Test_Student_1");
-//        editStudent.setAge(15);
-//        Assertions
-//                .assertThat(this.restTemplate.put("http://localhost:" + port + "/student", editStudent, Student.class))
-//                .isNotNull();
-//
-//    }
+    @Test
+        //PUT - не поняла что сделала и как сделать правильно. Что такое Object... urlVariables, можно пример?
+    void TestEditStudent() throws Exception {
+        Student student = new Student();
+        student.setId(1L);
+        student.setName("Test_Student_1");
+        student.setAge(16);
+        studentController.createNewStudent(student);
+        Assertions
+                .assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/student/" + student.getId(), Student.class))
+                .isEqualTo(student);
+        Student editStudent = new Student();
+        editStudent.setId(1L);
+        editStudent.setName("Test_Student_2");
+        editStudent.setAge(15);
+        studentController.editStudent(editStudent);
+                Assertions
+                .assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/student/" + student.getId(), Student.class))
+                .isEqualTo(editStudent);
+    }
 
-    @Test //DELETE
+    @Test
+        //DELETE
     void TestDeleteStudent() throws Exception {
         Student student = new Student();
         deleteStudent(student);
@@ -79,7 +91,7 @@ class StudentControllerTests {
         //GET
     void testGetAllStudents() throws Exception {
         Assertions
-                .assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/student", Student.class))
+                .assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/student", Collection.class))
                 .isNotNull();
     }
 
@@ -94,12 +106,12 @@ class StudentControllerTests {
     @Test
         //GET
     void testGetStudentByAgeBetween() throws Exception {
-        double max = Math.random() * 30;
-        double min = Math.random() * 30;
-              Assertions
+        double max = 15;
+        double min = 12;
+        Assertions
                 .assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/student/ageBetween/" + min + max, String.class))
                 .isNotNull();
-}
+    }
 
     @Test
         //GET

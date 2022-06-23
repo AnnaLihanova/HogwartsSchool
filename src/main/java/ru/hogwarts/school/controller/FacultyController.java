@@ -53,7 +53,7 @@ public class FacultyController {
         return facultyService.getAllFaculties();
     }
 
-    @GetMapping("/colorFiltr/{color}")
+    @GetMapping("/colorFilter/{color}")
     public ResponseEntity<Collection<Faculty>> getFacultiesByColor(@PathVariable String color) {
         Collection<Faculty> facultiesByColor = facultyService.getFacultiesByColor(color);
         if (facultiesByColor.isEmpty()) {
@@ -63,7 +63,7 @@ public class FacultyController {
     }
 
     @GetMapping("/findBy/{colorOrName}")
-    public Faculty findFacultyByNameOfColor(@RequestParam(required = false) String name,
+    public Faculty findFacultyByNameOrColor(@RequestParam(required = false) String name,
                                             @RequestParam(required = false) String color) {
         return facultyService.findFacultyByNameOrColor(name, color);
     }
