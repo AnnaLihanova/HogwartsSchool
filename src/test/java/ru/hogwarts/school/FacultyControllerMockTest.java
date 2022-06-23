@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import ru.hogwarts.school.controller.FacultyController;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.AvatarRepository;
 import ru.hogwarts.school.repository.FacultyRepository;
 import ru.hogwarts.school.repository.StudentRepository;
@@ -23,6 +24,7 @@ import ru.hogwarts.school.service.impl.FacultyServiceImpl;
 import ru.hogwarts.school.service.impl.StudentServiceImpl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -78,7 +80,7 @@ public class FacultyControllerMockTest {
     private Faculty updatedFaculty = new Faculty();
 
     private List<Faculty> faculties = new ArrayList<>();
-
+    private Collection<Student> students = new ArrayList<>();
 
     @Test
     public void createNewFacultyTest() throws Exception {
@@ -176,6 +178,18 @@ public class FacultyControllerMockTest {
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/faculty")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test //не работает, и я не заню как исправить.
+    public void getStudentsOfFaculty() throws Exception {
+
+        when(facultyRepository.findById(id).get().getStudents()).thenReturn(students);
+
+        mockMvc.perform(MockMvcRequestBuilders
+                        .get("/faculty/facultyStudents/{id}", id)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
