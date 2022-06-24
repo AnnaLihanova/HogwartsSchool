@@ -12,7 +12,7 @@ import java.util.Collection;
 import java.util.Map;
 
 @RestController
-@RequestMapping("faculty")
+@RequestMapping("/faculty")
 public class FacultyController {
     private final FacultyService facultyService;
 
@@ -25,7 +25,7 @@ public class FacultyController {
         return facultyService.createNewFaculty(faculty);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Faculty> findFaculty(@PathVariable Long id) {
         Faculty foundFaculty = facultyService.findFaculty(id);
         if (foundFaculty == null) {
@@ -43,7 +43,7 @@ public class FacultyController {
         return ResponseEntity.ok(editFaculty);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public void deleteFaculty(@PathVariable Long id) {
         facultyService.deleteFaculty(id);
     }
@@ -53,7 +53,7 @@ public class FacultyController {
         return facultyService.getAllFaculties();
     }
 
-    @GetMapping("/colorFiltr/{color}")
+    @GetMapping("/colorFilter/{color}")
     public ResponseEntity<Collection<Faculty>> getFacultiesByColor(@PathVariable String color) {
         Collection<Faculty> facultiesByColor = facultyService.getFacultiesByColor(color);
         if (facultiesByColor.isEmpty()) {
