@@ -6,13 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import ru.hogwarts.school.controller.StudentController;
 import ru.hogwarts.school.model.Student;
 
 import java.util.Collection;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class StudentControllerTests {
@@ -53,25 +55,18 @@ class StudentControllerTests {
     }
 
     @Test
-        //PUT - не поняла что сделала и как сделать правильно. Что такое Object... urlVariables, можно пример?
+        //PUT
     void TestEditStudent() throws Exception {
-        Student student = new Student();
-        student.setId(1L);
-        student.setName("Test_Student_1");
-        student.setAge(16);
-        studentController.createNewStudent(student);
-        Assertions
-                .assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/student/" + student.getId(), Student.class))
-                .isEqualTo(student);
         Student editStudent = new Student();
         editStudent.setId(1L);
-        editStudent.setName("Test_Student_2");
-        editStudent.setAge(15);
-        studentController.editStudent(editStudent);
-                Assertions
-                .assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/student/" + student.getId(), Student.class))
-                .isEqualTo(editStudent);
-    }
+        editStudent.setName("Test_Student_1");
+        editStudent.setAge(16);
+
+        HttpEntity<Student> entity = new HttpEntity<>(editStudent);
+        ResponseEntity<Student> response = this.restTemplate.exchange("http://localhost:" + port + "/student", HttpMethod.PUT, entity, Student.class);
+
+        assertEquals(response.getStatusCode(), HttpStatus.OK);
+     }
 
     @Test
         //DELETE

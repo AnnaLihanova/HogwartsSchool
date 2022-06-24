@@ -183,10 +183,14 @@ public class FacultyControllerMockTest {
                 .andExpect(status().isOk());
     }
 
-    @Test //не работает, и я не заню как исправить.
+    @Test
     public void getStudentsOfFaculty() throws Exception {
-
-        when(facultyRepository.findById(id).get().getStudents()).thenReturn(students);
+        Student student = new Student();
+        student.setId(1L);
+        faculty.setId(id);
+        faculty.setName(name);
+        faculty.setStudents(List.of(student));
+        when(facultyRepository.findById(id)).thenReturn(Optional.ofNullable(faculty));
 
         mockMvc.perform(MockMvcRequestBuilders
                         .get("/faculty/facultyStudents/{id}", id)
@@ -195,7 +199,7 @@ public class FacultyControllerMockTest {
                 .andExpect(status().isOk());
     }
 
-    @Test //не работает, и я не заню как исправить.
+    @Test
     public void getFacultyByColorOrNameTest() throws Exception {
 
         faculty.setId(id);
@@ -204,7 +208,7 @@ public class FacultyControllerMockTest {
 
         when(facultyRepository.findFacultyByNameIgnoreCaseOrColorIgnoreCase(nameIgnoreCase, color)).thenReturn(faculty);
         mockMvc.perform(MockMvcRequestBuilders
-                        .get("/faculty/findBy/{colorOrName}")
+                        .get("/faculty/findBy/something")
                         .queryParam("color", color)
                         .queryParam("name", nameIgnoreCase)
                         .contentType(MediaType.APPLICATION_JSON)
