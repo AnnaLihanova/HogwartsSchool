@@ -61,4 +61,19 @@ public class StudentServiceImpl implements StudentService {
     public Student findStudentByNameContainsIgnoreCase(String name) {
         return studentRepository.findStudentByNameContainsIgnoreCase(name);
     }
+
+    @Override
+    public int getCountOfStudents() {
+        return studentRepository.getCountOfStudents();
+    }
+
+    @Override
+    public int getAvgAgeOfStudents() {
+        return studentRepository.getAvgAgeOfStudents();
+    }
+
+    @Override
+    public List<Student> getLastFiveStudents() {
+        return studentRepository.getLastFiveStudents();
+    }
 }

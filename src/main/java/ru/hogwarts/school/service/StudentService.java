@@ -26,4 +26,10 @@ public interface StudentService {
     String getFacultyOfStudent(Long id);
 
     Student findStudentByNameContainsIgnoreCase(String name);
+
+    int getCountOfStudents();
+
+    int getAvgAgeOfStudents();
+
+    List<Student> getLastFiveStudents();
 }
