@@ -74,4 +74,18 @@ public class StudentController {
     public ResponseEntity findStudentByNameContainsIgnoreCase(@PathVariable String name) {
         return ResponseEntity.ok(studentService.findStudentByNameContainsIgnoreCase(name));
     }
+
+    @GetMapping("/count")
+    public int getCountOfStudents() {
+        return studentService.getCountOfStudents();
+    }
+
+    @GetMapping("/avg")
+    public int getAvgAgeOfStudents() {
+        return studentService.getAvgAgeOfStudents();
+    }
+    @GetMapping("/last5Students")
+    public List<Student> getLastFiveStudents() {
+        return studentService.getLastFiveStudents();
+    }
 }
