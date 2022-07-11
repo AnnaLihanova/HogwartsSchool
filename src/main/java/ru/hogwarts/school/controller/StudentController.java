@@ -91,7 +91,7 @@ public class StudentController {
     }
 
     @GetMapping("/StudentsNameWithA")
-    public List<Student> getStudentsNameWithA() {
+    public List<String> getStudentsNameWithA() {
         return studentService.getStudentsNameWithA();
     }
 }

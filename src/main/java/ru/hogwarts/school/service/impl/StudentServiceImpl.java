@@ -10,6 +10,7 @@ import ru.hogwarts.school.service.StudentService;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -98,14 +99,14 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> getStudentsNameWithA() {
+    public List<String> getStudentsNameWithA() {
         logger.debug("Received students whose name start with A");
-        List<Student> studentsNameWithA = new ArrayList<>();
-        getAllStudents().stream().parallel().forEach(student -> {
-            if (student.getName().startsWith("A")) {
-                studentsNameWithA.add(student);
-            }
-        });
-        return studentsNameWithA;
+        return getAllStudents().stream()
+                .parallel()
+                .map(Student::getName)
+                .map(String::toUpperCase)
+                .filter(s -> s.startsWith("A"))
+                .sorted()
+                .collect(Collectors.toList());
     }
 }

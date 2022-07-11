@@ -33,6 +33,6 @@ public interface StudentService {
 
     List<Student> getLastFiveStudents();
 
-    List<Student> getStudentsNameWithA();
+    List<String> getStudentsNameWithA();
 
 }
