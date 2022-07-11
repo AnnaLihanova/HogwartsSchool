@@ -7,8 +7,10 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.StudentRepository;
 import ru.hogwarts.school.service.StudentService;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -82,14 +84,29 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public int getAvgAgeOfStudents() {
+    public double getAvgAgeOfStudents() {
         logger.debug("Received a average age of student");
-        return studentRepository.getAvgAgeOfStudents();
+//        return studentRepository.getAvgAgeOfStudents();
+        return studentRepository.findAll().stream()
+                .mapToInt(Student::getAge)
+                .average().getAsDouble();
     }
 
     @Override
     public List<Student> getLastFiveStudents() {
         logger.debug("Received last five students");
         return studentRepository.getLastFiveStudents();
+    }
+
+    @Override
+    public List<String> getStudentsNameWithA() {
+        logger.debug("Received students whose name start with A");
+        return getAllStudents().stream()
+                .parallel()
+                .map(Student::getName)
+                .map(String::toUpperCase)
+                .filter(s -> s.startsWith("A"))
+                .sorted()
+                .collect(Collectors.toList());
     }
 }
