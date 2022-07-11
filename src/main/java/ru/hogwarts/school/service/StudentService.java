@@ -29,7 +29,10 @@ public interface StudentService {
 
     int getCountOfStudents();
 
-    int getAvgAgeOfStudents();
+    double getAvgAgeOfStudents();
 
     List<Student> getLastFiveStudents();
+
+    List<Student> getStudentsNameWithA();
+
 }
