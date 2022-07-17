@@ -17,7 +17,7 @@ public interface StudentService {
 
     void deleteStudent(Long id);
 
-    Collection<Student> getAllStudents();
+    List<Student> getAllStudents();
 
     List<Student> getStudentsByAge(int age);
 
@@ -35,4 +35,9 @@ public interface StudentService {
 
     List<String> getStudentsNameWithA();
 
+    void getStudentsThreads();
+
+    void run(int id);
+
+    void printNameSynchronized();
 }
