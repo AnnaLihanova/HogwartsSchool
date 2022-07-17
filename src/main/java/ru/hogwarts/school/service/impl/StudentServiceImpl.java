@@ -7,7 +7,6 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repository.StudentRepository;
 import ru.hogwarts.school.service.StudentService;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -47,7 +46,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Collection<Student> getAllStudents() {
+    public List<Student> getAllStudents() {
         logger.debug("Received a list of students");
         return studentRepository.findAll();
     }
@@ -108,5 +107,45 @@ public class StudentServiceImpl implements StudentService {
                 .filter(s -> s.startsWith("A"))
                 .sorted()
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void getStudentsThreads() {
+        List<Student> studentsThreads = getAllStudents();
+        System.out.println(studentsThreads.get(0).getName());
+        System.out.println(studentsThreads.get(1).getName());
+
+        new Thread(() -> {
+            System.out.println(studentsThreads.get(2).getName());
+            System.out.println(studentsThreads.get(3).getName());
+        }).start();
+
+        new Thread(() -> {
+            System.out.println(studentsThreads.get(4).getName());
+            System.out.println(studentsThreads.get(5).getName());
+        }).start();
+    }
+
+    @Override
+    public synchronized void run(int id) {
+        String student = studentRepository.findAll().get(id).getName();
+        System.out.println(student);
+    }
+
+    @Override
+    public void printNameSynchronized() {
+        run(0);
+        run(1);
+
+        new Thread(() -> {
+            run(4);
+            run(5);
+        }).start();
+
+        new Thread(() -> {
+            run(2);
+            run(3);
+        }).start();
+
     }
 }

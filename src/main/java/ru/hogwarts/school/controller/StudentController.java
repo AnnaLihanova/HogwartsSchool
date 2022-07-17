@@ -8,6 +8,7 @@ import ru.hogwarts.school.service.StudentService;
 import ru.hogwarts.school.service.impl.StudentServiceImpl;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/student")
@@ -90,8 +91,18 @@ public class StudentController {
         return studentService.getLastFiveStudents();
     }
 
-    @GetMapping("/StudentsNameWithA")
+    @GetMapping("/studentsNameWithA")
     public List<String> getStudentsNameWithA() {
         return studentService.getStudentsNameWithA();
+    }
+
+    @GetMapping("/studentsThreads")
+    public void getStudentsThreads() {
+        studentService.getStudentsThreads();
+    }
+
+    @GetMapping("/studentsSynchronized")
+    public void printNameSynchronized() {
+       studentService.printNameSynchronized();
     }
 }
